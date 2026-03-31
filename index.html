@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+  <meta charset="UTF-8">
+  <title>Ura</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      height: 100%;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    .day {
+      font-size: 18vw;
+      font-weight: bold;
+      margin-bottom: 1vh;
+    }
+    .time {
+      font-size: 18vw;
+      color: #f57700;
+      margin-bottom: 1vh;
+    }
+    .part {
+      font-size: 6vw;
+      margin-bottom: 1vh;
+    }
+    .date {
+      font-size: 6vw;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="day" id="day"></div>
+    <div class="part" id="part"></div>
+    <div class="time" id="time"></div>
+    <div class="date" id="date"></div>
+  </div>
+
+  <script>
+    function updateClock() {
+      var now = new Date();
+
+      var hours = now.getHours();
+      var minutes = now.getMinutes();
+
+      if (hours < 10) hours = "0" + hours;
+      if (minutes < 10) minutes = "0" + minutes;
+
+      var days = [
+        "NEDELJA",
+        "PONEDELJEK",
+        "TOREK",
+        "SREDA",
+        "ČETRTEK",
+        "PETEK",
+        "SOBOTA"
+      ];
+
+     var months = [
+       "januar",
+       "februar",
+       "marec",
+       "april",
+       "maj",
+       "junij",
+       "julij",
+       "avgust",
+       "september",
+       "oktober",
+       "november",
+       "december"
+     ];
+
+
+      var dayName = days[now.getDay()];
+
+      // Del dneva
+      var partOfDay = "";
+      var h = now.getHours();
+
+      if (h >= 5 && h < 9) partOfDay = "ZJUTRAJ";
+      else if (h >= 9 && h < 12) partOfDay = "DOPOLDAN";
+      else if (h >= 12 && h < 18) partOfDay = "POPOPOLDAN";
+      else if (h >= 18 && h < 22) partOfDay = "ZVEČER";
+      else partOfDay = "NOČ - ČAS ZA SPANJE";
+
+      var day = now.getDate();
+      var month = now.getMonth() + 1;
+      var year = now.getFullYear();
+
+      if (day < 10) day = "0" + day;
+      if (month < 10) month = "0" + month;
+
+      document.getElementById("time").textContent = hours + ":" + minutes;
+      document.getElementById("day").textContent = dayName;
+      document.getElementById("part").textContent = partOfDay;
+      document.getElementById("date").textContent = day + ". " + months[now.getMonth()] + " " + year;
+    }
+
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
