@@ -112,7 +112,11 @@
       document.getElementById("part").textContent = partOfDay;
       document.getElementById("date").textContent = day + ". " + months[now.getMonth()] + " " + year;
     }
-
+    
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("sw.js");
+    }
+    
     updateClock();
     setInterval(updateClock, 1000);
   </script>
